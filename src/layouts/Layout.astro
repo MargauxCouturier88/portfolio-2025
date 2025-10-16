@@ -1,0 +1,128 @@
+---
+import Logo from "../assets/logo.svg";
+import "../styles/global.css";
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro Basics</title>
+	</head>
+	<body>
+		<nav class="bg-[#3d2e28] py-4 px-6">
+			<div class="max-w-7xl mx-auto">
+				<ul class="flex items-center justify-center gap-8 lg:gap-12">
+					<!-- Section gauche -->
+					<li>
+						<a
+							href="#"
+							class="text-[#e8d5c4] hover:text-white transition-colors text-base lg:text-lg font-light"
+						>
+							Devenir illustratrice
+						</a>
+					</li>
+					<li>
+						<a
+							href="#"
+							class="text-[#e8d5c4] hover:text-white transition-colors text-base lg:text-lg font-light"
+						>
+							Mon Parcours
+						</a>
+					</li>
+
+					<!-- Logo centré -->
+					<li class="mx-6">
+						<a
+							href="/"
+							class="flex items-center hover:opacity-90 transition-opacity"
+						>
+							<Logo
+								width="60"
+								height="60"
+								class="drop-shadow-md"
+							/>
+						</a>
+					</li>
+
+					<!-- Section droite -->
+					<li class="relative group">
+						<button
+							class="text-[#e8d5c4] hover:text-white transition-colors text-base lg:text-lg font-light flex items-center gap-1"
+						>
+							Mes Projets
+							<svg
+								class="w-4 h-4"
+								fill="none"
+								stroke="currentColor"
+								viewBox="0 0 24 24"
+							>
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M19 9l-7 7-7-7"></path>
+							</svg>
+						</button>
+						<ul
+							class="absolute hidden group-hover:block bg-[#3d2e28] rounded-lg shadow-xl mt-2 py-2 w-72 z-50 border border-[#5a4a42]"
+						>
+							<li>
+								<a
+									href="#"
+									class="block px-4 py-2 text-[#e8d5c4] hover:bg-[#4a3932] hover:text-white transition-colors text-sm"
+								>
+									Design évènementiel DJ
+								</a>
+							</li>
+							<li>
+								<a
+									href="#"
+									class="block px-4 py-2 text-[#e8d5c4] hover:bg-[#4a3932] hover:text-white transition-colors text-sm"
+								>
+									Conception d'un logo éthique et modulable
+								</a>
+							</li>
+							<li>
+								<a
+									href="#"
+									class="block px-4 py-2 text-[#e8d5c4] hover:bg-[#4a3932] hover:text-white transition-colors text-sm"
+								>
+									Création d'une bande dessinée fantastique
+								</a>
+							</li>
+							<li>
+								<a
+									href="#"
+									class="block px-4 py-2 text-[#e8d5c4] hover:bg-[#4a3932] hover:text-white transition-colors text-sm"
+								>
+									Rencontre avec un professionnel
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a
+							href="#"
+							class="text-[#e8d5c4] hover:text-white transition-colors text-base lg:text-lg font-light"
+						>
+							Contact
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+</style>
