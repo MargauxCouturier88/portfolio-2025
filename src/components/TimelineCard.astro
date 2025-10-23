@@ -10,13 +10,33 @@ interface Props {
 const { titre, descriptif, badge, datePeriode, position } = Astro.props;
 ---
 
-<div class="relative mb-8">
+<div class="relative mb-6 sm:mb-8">
+    <div class="md:hidden mb-6">
+        {datePeriode && (
+            <div class="flex justify-center mb-3">
+                <div class="bg-[#BF2A52] text-white px-4 py-2 rounded text-xs font-bold whitespace-nowrap">
+                    {datePeriode}
+                </div>
+            </div>
+        )}
+        <div class="bg-[#F5EBDD] p-5 rounded-lg shadow-lg mx-4">
+            <h3 class="text-lg font-bold text-black mb-3 uppercase">
+                {titre}
+            </h3>
+            <p class="text-sm text-gray-700 leading-relaxed mb-4">
+                {descriptif}
+            </p>
+            {badge && (
+                <span class="inline-block bg-[#BF2A52] text-white px-5 py-2 rounded-full text-xs font-medium uppercase">
+                    {badge}
+                </span>
+            )}
+        </div>
+    </div>
 
-    <div class="flex gap-8 items-center">
-
+    <div class="hidden md:flex gap-8 items-center">
         <div class="flex-1 flex flex-col items-end gap-3">
             {position === 'gauche' ? (
-
                 <div class="bg-[#F5EBDD] p-6 rounded-lg shadow-lg w-full max-w-md">
                     <h3 class="text-xl font-bold text-black mb-3 uppercase">
                         {titre}
@@ -31,24 +51,20 @@ const { titre, descriptif, badge, datePeriode, position } = Astro.props;
                     )}
                 </div>
             ) : (
-
                 datePeriode && (
-                    <div class="bg-[#BF2A52] text-white px-4 py-2 rounded text-m font-bold whitespace-nowrap">
+                    <div class="bg-[#BF2A52] text-white px-4 py-2 rounded text-xs font-bold whitespace-nowrap">
                         {datePeriode}
                     </div>
                 )
             )}
         </div>
 
-
         <div class="flex-shrink-0">
             <div class="w-4 h-4 bg-[#BF2A52] rounded-full z-10 relative"></div>
         </div>
 
-
         <div class="flex-1 flex flex-col items-start gap-3">
             {position === 'droite' ? (
- 
                 <div class="bg-[#F5EBDD] p-6 rounded-lg shadow-lg w-full max-w-md">
                     <h3 class="text-xl font-bold text-black mb-3 uppercase">
                         {titre}
@@ -63,9 +79,8 @@ const { titre, descriptif, badge, datePeriode, position } = Astro.props;
                     )}
                 </div>
             ) : (
-
                 datePeriode && (
-                    <div class="bg-[#BF2A52] text-white px-4 py-2 rounded text-m font-bold whitespace-nowrap">
+                    <div class="bg-[#BF2A52] text-white px-4 py-2 rounded text-xs font-bold whitespace-nowrap">
                         {datePeriode}
                     </div>
                 )
@@ -73,4 +88,3 @@ const { titre, descriptif, badge, datePeriode, position } = Astro.props;
         </div>
     </div>
 </div>
-
