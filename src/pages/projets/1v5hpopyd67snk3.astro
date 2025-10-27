@@ -1,0 +1,331 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PocketBase from "pocketbase";
+import CardCompetence from "../../components/CardModulo.astro";
+
+const pb = new PocketBase("http://127.0.0.1:8090");
+
+const competences = await pb.collection("carrousel_modulo").getFullList({
+    sort: "created",
+});
+
+const competencesMapped = competences.map((comp) => ({
+    titre: comp.titre,
+    descriptifs: [
+        comp.descriptif1,
+        comp.descriptif2,
+        comp.descriptif3,
+        comp.descriptif4,
+    ].filter(Boolean),
+    icone: comp.icone || "pencil",
+}));
+
+const carteLogiciels = {
+    titre: "Compétences logiciels",
+    descriptifs: [
+        "Illustrator : Création, vectorisation et déclinaisons du logo MODULO",
+        "Figma : Prototypage, présentation et création de mockups",
+    ],
+    icone: "laptop",
+};
+
+const allCompetences = [...competencesMapped, carteLogiciels];
+---
+
+<Layout title="Projet Modulo - Logo éthique et modulable">
+    <section class="bg-white">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-center">
+            <div class="relative overflow-hidden">
+                <div
+                    id="carousel"
+                    class="carousel flex transition-transform duration-700 ease-in-out"
+                >
+                    <img
+                        src="/images/modulo1.webp"
+                        alt="Logo Modulo sur enseigne"
+                        class="w-full h-auto flex-shrink-0"
+                    />
+                    <img
+                        src="/images/modulo2.webp"
+                        alt="Logo Modulo variante"
+                        class="w-full h-auto flex-shrink-0"
+                    />
+                </div>
+            </div>
+
+            <div
+                class="py-12 sm:py-16 lg:py-20 px-6 sm:px-8 md:px-12 lg:px-20 space-y-6"
+            >
+                <h1
+                    class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#BF2A52]"
+                >
+                    Conception d'un logo éthique et modulable
+                </h1>
+
+                <p class="text-base sm:text-lg text-gray-700 leading-relaxed">
+                    Dans le cadre du BUT MMI, et plus précisément du cours de
+                    Culture artistique, nous avons mené un projet de conception
+                    de logo pour une entreprise spécialisée dans le mobilier
+                    modulaire et éco-responsable.
+                </p>
+
+                <div
+                    class="flex justify-end -mr-6 sm:-mr-8 md:-mr-12 lg:-mr-20"
+                >
+                    <img
+                        src="/images/modulo3.webp"
+                        alt="Carton Modulo"
+                        class="w-80 sm:w-96 md:w-[28rem] lg:w-[32rem] h-auto"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="bg-white py-12 sm:py-16 lg:py-20 px-6 sm:px-8 md:px-12 lg:px-20"
+    >
+        <div class="max-w-7xl mx-auto">
+            <h2
+                class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#BF2A52] text-center mb-12 sm:mb-16"
+            >
+                Compétences mises en œuvre
+            </h2>
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
+            >
+                {
+                    allCompetences.map((comp) => (
+                        <CardCompetence
+                            titre={comp.titre}
+                            descriptifs={comp.descriptifs}
+                            icone={comp.icone}
+                        />
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="bg-[#BF2A52] py-12 sm:py-16 lg:py-20 px-6 sm:px-8 md:px-12 lg:px-20"
+    >
+        <div class="max-w-7xl mx-auto">
+            <div
+                class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+            >
+                <div class="text-white space-y-4">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+                        Conception du moodboard
+                    </h2>
+                    <p class="text-base sm:text-lg leading-relaxed">
+                        À travers ce moodboard, la combinaison couleurs et
+                        textures permet de créer un visuel cohérent et
+                        percutant. Les plantes sont présentées pour symboliser
+                        l'éco responsabilité de l'entreprise. Pour le mobilier,
+                        l'intention des pièces modulables, aux formes variées et
+                        aux positions ajustables, comme les canapés, offre
+                        d'apporter flexibilité et fonctionnalité. Ce moodboard a
+                        pour objectif d'inspirer une ambiance à la fois élégante
+                        et chaleureuse, montrant que des espaces à l'esthétique
+                        luxueuse peuvent aussi être accueillants et
+                        confortables.
+                    </p>
+                </div>
+
+                <div class="flex justify-center lg:justify-end">
+                    <img
+                        src="/images/moodboard-modulo.webp"
+                        alt="Moodboard MODULO"
+                        class="w-full max-w-md h-auto rounded-lg shadow-2xl"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="bg-white py-12 sm:py-16 lg:py-20 px-6 sm:px-8 md:px-12 lg:px-20"
+    >
+        <div class="max-w-7xl mx-auto">
+            <h2
+                class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#BF2A52] mb-12 sm:mb-16"
+            >
+                Un logo, deux versions
+            </h2>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                <div class="space-y-8 order-1 lg:order-2">
+                    <div>
+                        <p
+                            class="text-base sm:text-lg text-gray-700 leading-relaxed"
+                        >
+                            On observe une réelle évolution entre le prototype
+                            et la version finale : la lettre "L" de MODULO est
+                            représentée par une lampe à la forme atypique, un
+                            choix inspiré de mon moodboard. Cette forme a été
+                            sélectionnée pour illustrer l'aspect modulable des
+                            produits proposés par l'entreprise.
+                        </p>
+                    </div>
+
+                    <div>
+                        <p
+                            class="text-base sm:text-lg text-gray-700 leading-relaxed"
+                        >
+                            Quant à la lettre "O", elle ne devait pas avoir un
+                            aspect graphique particulier. Cette décision n'est
+                            venue qu'explorant différentes inspirations de
+                            mobilier. J'ai trouvé intéressant d'intégrer une
+                            forme peu commune, apportant plus d'originalité.
+                        </p>
+                    </div>
+
+                    <div>
+                        <p
+                            class="text-base sm:text-lg text-gray-700 leading-relaxed"
+                        >
+                            Concernant le choix des couleurs, j'ai utilisé
+                            celles du moodboard, car elles définissent
+                            l'identité visuelle de l'entreprise. J'ai choisi de
+                            mettre en avant la lettre "O", en forme de meuble,
+                            avec une couleur différente afin d'accentuer
+                            l'importance du mobilier par rapport à la
+                            décoration. Cela permet également d'éviter une
+                            surcharge visuelle.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="relative min-h-[350px] sm:min-h-[450px] lg:min-h-[500px] order-2 lg:order-1"
+                >
+                    <div class="absolute bottom-0 left-0 w-[70%]">
+                        <img
+                            src="/images/logo-version2.webp"
+                            alt="Logo MODULO version dessinée"
+                            class="w-full h-auto"
+                        />
+                    </div>
+
+                    <div class="absolute top-0 right-0 w-[70%]">
+                        <img
+                            src="/images/logo-version1.webp"
+                            alt="Logo MODULO final version 1"
+                            class="w-full h-auto"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                <div class="space-y-8 order-1">
+                    <div>
+                        <p
+                            class="text-base sm:text-lg text-gray-700 leading-relaxed"
+                        >
+                            On remarque une évolution significative entre le
+                            prototype et la version finale du logo. Plusieurs
+                            éléments ont été supprimés afin d'alléger le visuel,
+                            car trop de détails nuisait à la compréhension de
+                            l'identité de l'entreprise.
+                        </p>
+                    </div>
+
+                    <div>
+                        <p
+                            class="text-base sm:text-lg text-gray-700 leading-relaxed"
+                        >
+                            Le dernier "O" adopte une forme aléatoire et
+                            organique, inspirée d'un fauteuil issu du moodboard,
+                            illustrant ainsi le concept de mobilier modulable
+                            proposé par l'entreprise.
+                        </p>
+                    </div>
+
+                    <div>
+                        <p
+                            class="text-base sm:text-lg text-gray-700 leading-relaxed"
+                        >
+                            La typographie utilisée, nommé Serif, reste
+                            identique à celle de la version précédente,
+                            apportant une touche à la fois moderne et élégante.
+                        </p>
+                    </div>
+
+                    <div>
+                        <p
+                            class="text-base sm:text-lg text-gray-700 leading-relaxed"
+                        >
+                            Quant au choix des couleurs, la même réflexion a été
+                            appliquée que pour la première proposition, mettant
+                            particulièrement en valeur la lettre "O" pour
+                            renforcer son impact visuel.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    class="relative min-h-[350px] sm:min-h-[450px] lg:min-h-[500px] order-2"
+                >
+                    <div class="absolute top-0 left-0 w-[70%]">
+                        <img
+                            src="/images/logo-evolution1.webp"
+                            alt="Logo MODULO final version 2"
+                            class="w-full h-auto"
+                        />
+                    </div>
+
+                    <div class="absolute bottom-0 right-0 w-[70%]">
+                        <img
+                            src="/images/logo-evolution2.webp"
+                            alt="Logo MODULO version dessinée"
+                            class="w-full h-auto"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pb-0">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+            <img
+                src="/images/mockup-carte.webp"
+                alt="Mockup carte MODULO"
+                class="w-full h-full object-cover"
+            />
+            <img
+                src="/images/mockup-sac.webp"
+                alt="Mockup sac MODULO"
+                class="w-full h-full object-cover"
+            />
+        </div>
+    </section>
+</Layout>
+
+<style>
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+</style>
+
+<script>
+    let currentIndex = 0;
+    const carousel = document.getElementById("carousel");
+    const totalImages = 2;
+
+    function slideCarousel() {
+        currentIndex = (currentIndex + 1) % totalImages;
+        if (carousel) {
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+    }
+
+    setInterval(slideCarousel, 4000);
+</script>
