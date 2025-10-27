@@ -1,0 +1,165 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PocketBase from "pocketbase";
+import CardCompetence from "../../components/CardAffiche.astro";
+
+const pb = new PocketBase("http://127.0.0.1:8090");
+
+const competences = await pb.collection("carrousel_affiche").getFullList({
+    sort: "created",
+});
+
+const competencesMapped = competences.map((comp) => ({
+    titre: comp.titre,
+    descriptifs: [comp.descriptif1, comp.descriptif2, comp.descriptif3].filter(
+        Boolean,
+    ),
+    icone: comp.icone || "image",
+}));
+
+const carteLogiciels = {
+    titre: "Compétences logiciels",
+    descriptifs: [
+        "Photoshop : Retouche d'images et création de visuels",
+        "Figma : Conception d'interfaces et prototypage",
+        "Illustrator : Design vectoriel et création graphique",
+    ],
+    icone: "laptop",
+};
+
+const allCompetences = [...competencesMapped, carteLogiciels];
+---
+
+<Layout title="Affiche événementielle pour un DJ">
+    <section class="grid grid-cols-1 lg:grid-cols-2">
+        <div
+            class="relative bg-gray-100 min-h-[300px] sm:min-h-[400px] lg:min-h-[600px] order-1 lg:order-2"
+        >
+            <img
+                src="/images/Affiche1.webp"
+                alt="Affiche DJ Keidi"
+                class="absolute inset-0 w-full h-full object-cover"
+            />
+        </div>
+
+        <div
+            class="bg-white flex items-center px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 sm:py-16 lg:py-20 order-2 lg:order-1"
+        >
+            <div>
+                <h1
+                    class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#3B2E2F] mb-6 sm:mb-8 leading-tight"
+                >
+                    Affiche événementielle pour un DJ
+                </h1>
+                <p class="text-base sm:text-lg text-gray-700 leading-relaxed">
+                    Le projet consistait à créer une affiche pour un DJ encore
+                    en début de carrière, à l'occasion de l'une de ses premières
+                    performances. L'objectif était de capter l'attention d'un
+                    public jeune et dynamique, tout en reflétant l'univers
+                    visuel du lieu : L'ANIMAL BAR, un bar au style affirmé et
+                    alternatif.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="bg-white py-12 sm:py-16 lg:py-20 px-6 sm:px-8 md:px-12 lg:px-20"
+    >
+        <div class="max-w-7xl mx-auto">
+            <h2
+                class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#3B2E2F] text-center mb-12 sm:mb-16"
+            >
+                Compétences mises en œuvre
+            </h2>
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
+            >
+                {
+                    allCompetences.map((comp) => (
+                        <CardCompetence
+                            titre={comp.titre}
+                            descriptifs={comp.descriptifs}
+                            icone={comp.icone}
+                        />
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="bg-[#3d2e28] py-12 sm:py-16 lg:py-20 px-6 sm:px-8 md:px-12 lg:px-20"
+    >
+        <div class="max-w-7xl mx-auto">
+            <h2
+                class="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-12 sm:mb-16"
+            >
+                De l'inspiration à la création
+            </h2>
+
+            <div
+                class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+            >
+                <div class="grid grid-cols-2 gap-4 sm:gap-6">
+                    <img
+                        src="/images/inspi1.webp"
+                        alt="Inspiration 1"
+                        class="w-full h-auto rounded-lg shadow-lg"
+                    />
+                    <img
+                        src="/images/inspi2.webp"
+                        alt="Inspiration 2"
+                        class="w-full h-auto rounded-lg shadow-lg"
+                    />
+                </div>
+
+                <div class="text-white space-y-6">
+                    <p class="text-base sm:text-lg leading-relaxed">
+                        Le DJ m'a transmis plusieurs visuels qui l'inspiraient
+                        et qui ont servi de point de départ pour mes recherches.
+                        J'ai ensuite orienté mes choix graphiques en m'appuyant
+                        sur l'identité du bar, notamment en mettant en avant son
+                        nom et en intégrant des éléments visuels qui rappellent
+                        son ambiance singulière.
+                    </p>
+                    <p class="text-base sm:text-lg leading-relaxed">
+                        La collaboration s'est déroulée de manière fluide,
+                        puisque je connaissais déjà le DJ et que nous avons pu
+                        échanger facilement sur ses attentes.
+                    </p>
+                    <p class="text-base sm:text-lg leading-relaxed">
+                        À la livraison, l'affiche a non seulement satisfait
+                        pleinement le DJ, mais elle a également été très bien
+                        accueillie par son entourage, renforçant sa
+                        communication pour cet événement.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-0">
+            <div
+                class="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]"
+            >
+                <img
+                    src="/images/Affiche2.webp"
+                    alt="Affiche en situation 1"
+                    class="absolute inset-0 w-full h-full object-cover"
+                />
+            </div>
+            <div
+                class="relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px]"
+            >
+                <img
+                    src="/images/Affiche3.webp"
+                    alt="Affiche en situation 2"
+                    class="absolute inset-0 w-full h-full object-cover"
+                />
+            </div>
+        </div>
+    </section>
+</Layout>
