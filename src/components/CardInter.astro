@@ -1,0 +1,38 @@
+---
+interface Props {
+    titre: string;
+    descriptifs: string[];
+    icone: string;
+}
+
+const { titre, descriptifs, icone } = Astro.props;
+
+const icones: Record<string, string> = {
+    'pencil': 'M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z',
+    'document': 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z',
+    'users': 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+    'laptop': 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+};
+
+const iconePath = icones[icone] || icones['pencil'];
+---
+
+<div class="bg-[#F5EBDD] p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-xl transition-shadow">
+    <div class="w-12 h-12 sm:w-14 sm:h-14 bg-[#BF2A52] rounded-full flex items-center justify-center mb-4 sm:mb-6">
+        <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={iconePath}></path>
+        </svg>
+    </div>
+    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+        {titre}
+    </h3>
+    <ul class="space-y-2">
+        {descriptifs.filter(d => d).map((desc) => (
+            <li class="text-sm sm:text-base text-gray-700 leading-relaxed flex items-start">
+                <span class="text-[#BF2A52] mr-2 mt-1">•</span>
+                <span>{desc}</span>
+            </li>
+        ))}
+    </ul>
+</div>
+

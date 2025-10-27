@@ -1,0 +1,171 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PocketBase from "pocketbase";
+import CardCompetence from "../../components/CardInter.astro";
+
+const pb = new PocketBase("http://127.0.0.1:8090");
+
+const competences = await pb.collection("carrousel_interview").getFullList({
+    sort: "created",
+});
+
+const competencesMapped = competences.map((comp) => ({
+    titre: comp.titre,
+    descriptifs: [comp.descriptif1, comp.descriptif2, comp.descriptif3].filter(
+        Boolean,
+    ),
+    icone: comp.icone || "image",
+}));
+
+const carteLogiciels = {
+    titre: "Compétences logiciels",
+    descriptifs: [
+        "Canva : Rédaction d'article et réalisation de la mise en page",
+    ],
+    icone: "laptop",
+};
+
+const allCompetences = [...competencesMapped, carteLogiciels];
+---
+
+<Layout title="Projet PPP - Rencontre avec un professionnel">
+    <section
+        class="bg-white py-12 sm:py-16 lg:py-20 px-6 sm:px-8 md:px-12 lg:px-20"
+    >
+        <div class="max-w-7xl mx-auto">
+            <div
+                class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+            >
+                <div class="space-y-6">
+                    <h1
+                        class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#BF2A52]"
+                    >
+                        Rencontre avec un professionnel
+                    </h1>
+
+                    <p
+                        class="text-base sm:text-lg text-gray-700 leading-relaxed"
+                    >
+                        Dans le cadre du cours Projet Professionnel Personnel,
+                        j'ai réalisé une interview avec un professionnel afin de
+                        découvrir son parcours et comprendre le déroulement d'un
+                        projet professionnel. L'objectif était de développer ma
+                        capacité à poser les bonnes questions et à analyser des
+                        expériences concrètes.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <img
+                        src="/images/interview1.webp"
+                        alt="Document d'interview professionnel"
+                        class="w-full h-auto rounded-lg shadow-lg"
+                    />
+                    <img
+                        src="/images/interview2.webp"
+                        alt="Lecture du document"
+                        class="w-full h-auto rounded-lg shadow-lg"
+                    />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="bg-white py-12 sm:py-16 lg:py-20 px-6 sm:px-8 md:px-12 lg:px-20"
+    >
+        <div class="max-w-7xl mx-auto">
+            <h2
+                class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#BF2A52] text-center mb-12 sm:mb-16"
+            >
+                Compétences mises en œuvre
+            </h2>
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
+            >
+                {
+                    allCompetences.map((comp) => (
+                        <CardCompetence
+                            titre={comp.titre}
+                            descriptifs={comp.descriptifs}
+                            icone={comp.icone}
+                        />
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+    <section
+        class="bg-[#BF2A52] py-12 sm:py-16 lg:py-20 px-6 sm:px-8 md:px-12 lg:px-20"
+    >
+        <div class="max-w-7xl mx-auto">
+            <div
+                class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+            >
+                <div
+                    class="flex flex-row gap-4 lg:gap-6 justify-center items-center"
+                >
+                    <figure class="flex-1 flex flex-col items-center">
+                        <img
+                            src="/images/article-page1.webp"
+                            alt="Première page de l'article d'interview"
+                            class="w-full max-w-xs sm:max-w-sm lg:max-w-md h-auto"
+                        />
+                        <figcaption class="sr-only">
+                            Première page de l'article
+                        </figcaption>
+                    </figure>
+                    <figure class="flex-1 flex flex-col items-center">
+                        <img
+                            src="/images/article-page2.webp"
+                            alt="Seconde page de l'article d'interview"
+                            class="w-full max-w-xs sm:max-w-sm lg:max-w-md h-auto"
+                        />
+                        <figcaption class="sr-only">
+                            Seconde page de l'article
+                        </figcaption>
+                    </figure>
+                </div>
+
+                <div class="text-white space-y-6">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold">
+                        De l'entretien à l'article
+                    </h2>
+                    <p class="text-base sm:text-lg leading-relaxed">
+                        L'entretien s'est déroulé par téléphone, ce qui m'a
+                        demandé écoute active, adaptation et reformulation pour
+                        obtenir des réponses claires et détaillées. J'ai ensuite
+                        retranscrit et mis en page un article, permettant de
+                        relier, combiner rédaction structurée et mise en valeur
+                        visuelle ; ce qui m'a permis de renforcer mes
+                        compétences en mise en page et en communication
+                        visuelle.
+                    </p>
+                    <p class="text-base sm:text-lg leading-relaxed">
+                        Cette expérience m'a montré l'importance de la
+                        préparation, de l'adaptation et de la réflexion
+                        critique, et m'a permis de prendre conscience que chaque
+                        expérience passée constitue un apport précieux pour
+                        l'avenir.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white pb-0">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+            <img
+                src="/images/mockup1.webp"
+                alt="Article sur clipboard"
+                class="w-full h-full object-cover"
+            />
+            <img
+                src="/images/mockup2.webp"
+                alt="Article tenu en main"
+                class="w-full h-full object-cover"
+            />
+        </div>
+    </section>
+</Layout>
