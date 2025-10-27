@@ -1,0 +1,227 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PocketBase from "pocketbase";
+import CardCompetence from "../../components/CardBD.astro";
+
+const pb = new PocketBase("http://127.0.0.1:8090");
+
+const competences = await pb.collection("carrousel_bd").getFullList({
+    sort: "created",
+});
+
+const competencesMapped = competences.map((comp) => ({
+    titre: comp.titre,
+    descriptifs: [comp.descriptif1, comp.descriptif2, comp.descriptif3].filter(
+        Boolean,
+    ),
+    icone: comp.icone || "pencil",
+}));
+
+const carteLogiciels = {
+    titre: "Compétences logiciels",
+    descriptifs: [
+        "Illustrator : Création de dessins vectoriels et illustrations",
+        "Figma : Conception de planches et mise en page numérique",
+    ],
+    icone: "laptop",
+};
+
+const allCompetences = [...competencesMapped, carteLogiciels];
+---
+
+<Layout title="BD : La Mésaventure d'Alexandre">
+    <section class="grid grid-cols-1 lg:grid-cols-2">
+        <div
+            class="bg-white flex items-center px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 sm:py-16 lg:py-20 order-2 lg:order-1"
+        >
+            <div>
+                <h1
+                    class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#3B2E2F] mb-6 sm:mb-8 leading-tight"
+                >
+                    BD : La Mésaventure d'Alexandre
+                </h1>
+                <p class="text-base sm:text-lg text-gray-700 leading-relaxed">
+                    J'ai eu l'occasion de réaliser cette bande dessinée dans le
+                    cadre d'un cours de design d'expérience en BUT MMI.
+                    L'objectif initial du projet était de créer un storytelling
+                    à partir d'un personnage et d'un lieu attribués
+                    aléatoirement. J'ai ainsi travaillé autour de l'histoire
+                    d'Alexandre, 24 ans, vendeur et grand sportif, évoluant dans
+                    un univers centré sur la forêt.
+                </p>
+            </div>
+        </div>
+
+        <div
+            class="bg-white flex items-center px-6 sm:px-8 md:px-12 lg:px-16 py-12 sm:py-16 lg:py-20 order-1 lg:order-2"
+        >
+            <div
+                class="grid grid-cols-2 gap-6 sm:gap-8 w-full max-w-3xl mx-auto"
+            >
+                <img
+                    src="/images/BD1.webp"
+                    alt="Sketch de la BD"
+                    class="w-full h-auto rounded-lg shadow-lg"
+                />
+                <img
+                    src="/images/BD2.webp"
+                    alt="Storyboard de la BD"
+                    class="w-full h-auto rounded-lg shadow-lg"
+                />
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="bg-white py-12 sm:py-16 lg:py-20 px-6 sm:px-8 md:px-12 lg:px-20"
+    >
+        <div class="max-w-7xl mx-auto">
+            <h2
+                class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#3B2E2F] text-center mb-12 sm:mb-16"
+            >
+                Compétences mises en œuvre
+            </h2>
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10"
+            >
+                {
+                    allCompetences.map((comp) => (
+                        <CardCompetence
+                            titre={comp.titre}
+                            descriptifs={comp.descriptifs}
+                            icone={comp.icone}
+                        />
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="bg-[#3d2e28] py-12 sm:py-16 lg:py-20 px-6 sm:px-8 md:px-12 lg:px-20"
+    >
+        <div class="max-w-7xl mx-auto">
+            <div
+                class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center"
+            >
+                <div class="flex justify-center">
+                    <img
+                        src="/images/bd-planche.webp"
+                        alt="Planche BD"
+                        class="w-full h-auto rounded-lg shadow-lg"
+                    />
+                </div>
+
+                <div class="text-white">
+                    <h2 class="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8">
+                        Un projet enrichi par l'initiative personnelle
+                    </h2>
+                    <p class="text-base sm:text-lg leading-relaxed mb-4">
+                        Après la réalisation de la BD, un prolongement du projet
+                        consistait à réfléchir aux besoins du personnage et à
+                        imaginer les objets ou interfaces qui pourraient
+                        l'accompagner dans son univers. Cette étape m'a conduite
+                        à esquisser une maquette d'interface de vente de
+                        chaussures adaptée à l'environnement forestier, mais
+                        c'est avant tout la richesse de la bande dessinée qui a
+                        été au cœur de mon travail et de ma démarche créative.
+                    </p>
+                    <p class="text-base sm:text-lg leading-relaxed">
+                        Même si le rendu demandé se limitait à une bande
+                        dessinée simple et peu détaillée, j'ai choisi de pousser
+                        le projet plus loin en proposant une version plus
+                        élaborée et numérisée. Cette initiative m'a permis non
+                        seulement d'approfondir la qualité graphique de mon
+                        travail, mais aussi de mettre en avant ma créativité et
+                        mon sens du détail.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="bg-white py-8 sm:py-10 lg:py-12 px-6 sm:px-8 md:px-12 lg:px-20"
+    >
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-between items-center mb-6 sm:mb-8">
+                <h2
+                    class="text-3xl sm:text-4xl md:text-5xl font-bold text-[#3B2E2F]"
+                >
+                    Un univers fantasy comme référence
+                </h2>
+
+                <img
+                    src="/images/personnage-fantasy.webp"
+                    alt="Personnage fantasy"
+                    class="w-40 sm:w-48 md:w-56 lg:w-64 h-auto ml-6"
+                />
+            </div>
+
+            <div
+                class="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start lg:items-center"
+            >
+                <div class="flex-shrink-0">
+                    <img
+                        src="/images/grimoire-ellie.webp"
+                        alt="Le Grimoire d'Elfie"
+                        class="w-40 sm:w-48 md:w-52 h-auto"
+                    />
+                </div>
+
+                <div class="flex-1">
+                    <p
+                        class="text-base sm:text-lg text-gray-700 leading-relaxed"
+                    >
+                        Pour l'univers visuel, je me suis inspirée de la bande
+                        dessinée Le Grimoire d'Elfie, que j'ai particulièrement
+                        appréciée pour son ambiance fantasy et la finesse de ses
+                        illustrations. Cette influence m'a guidée dans la
+                        construction de mon propre style narratif et graphique
+                        au sein de ce projet.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section
+        class="bg-[#3d2e28] py-12 sm:py-16 lg:py-20 px-6 sm:px-8 md:px-12 lg:px-20"
+    >
+        <div class="max-w-7xl mx-auto">
+            <div class="overflow-x-auto scrollbar-hide pb-4">
+                <div class="flex gap-6 px-4">
+                    <div class="flex-shrink-0 w-full sm:w-[50%] lg:w-[35%]">
+                        <img
+                            src="/images/bd-finale1.webp"
+                            alt="Planche finale 1"
+                            class="w-full h-[400px] sm:h-[500px] lg:h-[600px] object-contain rounded-lg shadow-lg"
+                        />
+                    </div>
+                    <div class="flex-shrink-0 w-full sm:w-[50%] lg:w-[35%]">
+                        <img
+                            src="/images/bd-finale2.webp"
+                            alt="Planche finale 2"
+                            class="w-full h-[400px] sm:h-[500px] lg:h-[600px] object-contain rounded-lg shadow-lg"
+                        />
+                    </div>
+                    <div class="flex-shrink-0 w-full sm:w-[50%] lg:w-[35%]">
+                        <img
+                            src="/images/bd-finale3.webp"
+                            alt="Planche finale 3"
+                            class="w-full h-[400px] sm:h-[500px] lg:h-[600px] object-contain rounded-lg shadow-lg"
+                        />
+                    </div>
+                    <div class="flex-shrink-0 w-full sm:w-[50%] lg:w-[35%]">
+                        <img
+                            src="/images/bd-finale4.webp"
+                            alt="Planche finale 4"
+                            class="w-full h-[400px] sm:h-[500px] lg:h-[600px] object-contain rounded-lg shadow-lg"
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</Layout>
