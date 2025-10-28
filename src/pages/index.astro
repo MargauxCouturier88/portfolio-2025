@@ -3,7 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import PocketBase from "pocketbase";
 import ProjectCard from "../components/CarrouselAccueil.astro";
 
-const pb = new PocketBase("http://127.0.0.1:8090");
+const pb = new PocketBase(import.meta.env.PUBLIC_POCKETBASE_URL || "http://127.0.0.1:8090");
+
 
 const projects = await pb.collection("carrousel_accueil").getFullList({
 	sort: "-created",
