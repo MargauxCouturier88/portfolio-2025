@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import PocketBase from "pocketbase";
 import CardCompetence from "../../components/CardModulo.astro";
 
-const pb = new PocketBase('https://portfolio.margaux-couturier.fr');
+const pb = new PocketBase("http://127.0.0.1:8090");
 
 const competences = await pb.collection("carrousel_modulo").getFullList({
     sort: "created",
