@@ -7,5 +7,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
-  adapter: node({})
+  adapter: node({
+    mode: 'standalone',
+  })
 });
