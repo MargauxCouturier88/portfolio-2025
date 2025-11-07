@@ -1,31 +1,13 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
 import node from '@astrojs/node';
+import tailwindcss from '@tailwindcss/vite';
 
-// https://astro.build/config
 export default defineConfig({
-  output: 'server',
-  adapter: node({
-    mode: 'standalone',
-  }),
+  output: 'server',  
   vite: {
-    plugins: [tailwindcss()],
-    resolve: {
-      alias: {
-        '@src': '/src',
-      }
-    }
+    plugins: [tailwindcss()]
   },
-  server: {
-    host: true, // Écoute sur toutes les interfaces (0.0.0.0)
-    port: 8088   // Port utilisé par Apache ProxyPass
-  },
-  i18n: {
-    locales: ["en", "fr"],
-    defaultLocale: "en",
-    routing: {
-      prefixDefaultLocale: false,
-    },
-  },
+  adapter: node({    
+    mode: 'standalone'
+  })
 });
