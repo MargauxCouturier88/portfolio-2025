@@ -6,3 +6,4 @@ if(import.meta.env.MODE === 'development')
 else path = 'https://portfolio.margaux-couturier.fr:443'   //localhost = machine de déploiement
 const pb = new PocketBase(path) as TypedPocketBase;
 export default pb;
+export default path;
